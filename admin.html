@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — CHIDEX Tech Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem('chidex-theme');
+      if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    } catch (e) {}
+  })();
+</script>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <img class="brand-mark" src="assets/logo-icon.png" alt="CHIDEX Tech Hub logo">
+      <span>
+        <span class="brand-word">chidex tech hub</span><br>
+        <span class="brand-tagline">Laptops · Phones · Accessories</span>
+      </span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li id="nav-admin-link" class="hidden"><a href="admin.html">Admin</a></li>
+        <li id="nav-orders-link" class="hidden"><a href="orders.html">Orders</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="cart.html" class="cart-link">🛒 Cart <span id="cart-count" class="cart-badge hidden">0</span></a>
+        <span id="nav-guest">
+          <a href="login.html" class="btn btn-ghost btn-sm">Log in</a>
+        </span>
+        <span id="nav-user" class="hidden" style="display:flex; align-items:center; gap:10px;">
+          <span id="nav-user-name" style="font-size:0.85rem; color:var(--muted);"></span>
+          <button id="nav-logout" class="btn btn-ghost btn-sm">Log out</button>
+        </span>
+      </div>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light/dark theme" title="Toggle light/dark theme">🌙</button>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+<main>
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="eyebrow">Admin</div>
+      <h1>Manage products</h1>
+      <p>Add new stock, update prices, or remove items. Changes appear on the shop page instantly for every visitor.</p>
+    </div>
+  </section>
+
+  <section style="padding-top:0;">
+    <div class="wrap">
+
+      <div class="gate-notice hidden" id="gate-notice">
+        <h2>Admins only</h2>
+        <p>You're signed in, but this account isn't set up as an admin yet.</p>
+        <a href="index.html" class="btn btn-ghost">Back to home</a>
+      </div>
+
+      <div class="admin-layout hidden" id="admin-content">
+        <div class="admin-panel">
+          <h2 id="form-title">Add a product</h2>
+          <form id="product-form" novalidate>
+            <div class="form-field">
+              <label for="p-name">Product name</label>
+              <input type="text" id="p-name" name="name" required placeholder="e.g. HP EliteBook 840 G5">
+            </div>
+            <div class="form-field">
+              <label for="p-category">Category</label>
+              <select id="p-category" name="category" required>
+                <option value="">Select category</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="p-price">Price (₦)</label>
+              <input type="number" id="p-price" name="price" required min="0" placeholder="e.g. 350000">
+            </div>
+            <div class="form-field">
+              <label for="p-stock">Stock quantity</label>
+              <input type="number" id="p-stock" name="stock" min="0" placeholder="e.g. 5">
+            </div>
+            <div class="form-field">
+              <label for="p-image">Image URL (optional)</label>
+              <input type="url" id="p-image" name="imageUrl" placeholder="https://...">
+              <p class="form-hint" style="color:var(--muted-dim);">Leave blank to use a category placeholder icon.</p>
+            </div>
+            <div class="form-field">
+              <label for="p-desc">Description (optional)</label>
+              <textarea id="p-desc" name="description" placeholder="Specs, condition, etc."></textarea>
+            </div>
+            <div class="btn-row">
+              <button type="submit" class="btn btn-gold">Add product</button>
+              <button type="button" id="cancel-edit" class="btn btn-ghost hidden">Cancel</button>
+            </div>
+            <p id="form-msg" class="form-msg"></p>
+          </form>
+        </div>
+
+        <div class="admin-panel">
+          <h2>Current products</h2>
+          <div style="overflow-x:auto;">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Name</th>
+                  <th>Category</th>
+                  <th>Price</th>
+                  <th>Stock</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="product-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col footer-about">
+        <div class="brand-word" style="font-size:0.95rem;">chidex tech hub</div>
+        <p style="margin-top:10px;">Genuine devices. Honest prices. Part of CHIDEX Group, Computer Village, Ikeja.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="shop.html">Laptops</a></li>
+          <li><a href="shop.html">Phones</a></li>
+          <li><a href="shop.html">Tablets</a></li>
+          <li><a href="shop.html">Accessories</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="cart.html">Your Cart</a></li>
+          <li><a href="login.html">Account</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="https://wa.me/2349068602575">WhatsApp Us</a></li>
+          <li><a href="tel:+2349068602575">Call: 0906 860 2575</a></li>
+          <li><a href="tel:+2349137487882">Call: 0913 748 7882</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 CHIDEX Tech Hub — part of CHIDEX Group.</span>
+      <span>4B Pepple St, Computer Village, Ikeja, Lagos</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/theme.js"></script>
+<script type="module" src="js/nav.js"></script>
+<script type="module" src="js/admin.js"></script>
+</body>
+</html>

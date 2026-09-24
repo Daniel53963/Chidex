@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop — CHIDEX Tech Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem('chidex-theme');
+      if (saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    } catch (e) {}
+  })();
+</script>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <img class="brand-mark" src="assets/logo-icon.png" alt="CHIDEX Tech Hub logo">
+      <span>
+        <span class="brand-word">chidex tech hub</span><br>
+        <span class="brand-tagline">Laptops · Phones · Accessories</span>
+      </span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li id="nav-admin-link" class="hidden"><a href="admin.html">Admin</a></li>
+        <li id="nav-orders-link" class="hidden"><a href="orders.html">Orders</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="cart.html" class="cart-link">🛒 Cart <span id="cart-count" class="cart-badge hidden">0</span></a>
+        <span id="nav-guest">
+          <a href="login.html" class="btn btn-ghost btn-sm">Log in</a>
+        </span>
+        <span id="nav-user" class="hidden" style="display:flex; align-items:center; gap:10px;">
+          <span id="nav-user-name" style="font-size:0.85rem; color:var(--muted);"></span>
+          <button id="nav-logout" class="btn btn-ghost btn-sm">Log out</button>
+        </span>
+      </div>
+    </nav>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light/dark theme" title="Toggle light/dark theme">🌙</button>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+<main>
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="eyebrow">Shop</div>
+      <h1>All products</h1>
+      <p>Pick a category, add items to your cart, and confirm on WhatsApp when you're ready.</p>
+    </div>
+  </section>
+
+  <section style="padding-top:0;">
+    <div class="wrap">
+      <div class="filter-row" id="filter-row">
+        <button class="filter-chip active" data-category="All">All</button>
+        <button class="filter-chip" data-category="Laptops">Laptops</button>
+        <button class="filter-chip" data-category="Phones">Phones</button>
+        <button class="filter-chip" data-category="Tablets">Tablets</button>
+        <button class="filter-chip" data-category="Storage">Storage</button>
+        <button class="filter-chip" data-category="Monitors">Monitors</button>
+        <button class="filter-chip" data-category="Desktops">Desktops</button>
+        <button class="filter-chip" data-category="Printers">Printers</button>
+        <button class="filter-chip" data-category="Accessories">Accessories</button>
+      </div>
+
+      <div class="product-grid" id="product-grid"></div>
+
+      <div class="empty-state hidden" id="empty-state">
+        <h3>No products here yet</h3>
+        <p>Check back soon, or try a different category.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col footer-about">
+        <div class="brand-word" style="font-size:0.95rem;">chidex tech hub</div>
+        <p style="margin-top:10px;">Genuine devices. Honest prices. Part of CHIDEX Group, Computer Village, Ikeja.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="shop.html">Laptops</a></li>
+          <li><a href="shop.html">Phones</a></li>
+          <li><a href="shop.html">Tablets</a></li>
+          <li><a href="shop.html">Accessories</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="cart.html">Your Cart</a></li>
+          <li><a href="login.html">Account</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="https://wa.me/2349068602575">WhatsApp Us</a></li>
+          <li><a href="tel:+2349068602575">Call: 0906 860 2575</a></li>
+          <li><a href="tel:+2349137487882">Call: 0913 748 7882</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 CHIDEX Tech Hub — part of CHIDEX Group.</span>
+      <span>4B Pepple St, Computer Village, Ikeja, Lagos</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/theme.js"></script>
+<script type="module" src="js/nav.js"></script>
+<script type="module" src="js/shop.js"></script>
+</body>
+</html>
