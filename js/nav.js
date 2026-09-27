@@ -1,5 +1,5 @@
 import { auth, onAuthStateChanged, isAdmin, logOut } from "./auth.js";
-import { db, doc, onSnapshot } from "./firebase-init.js";
+import { db, doc, onSnapshot, updateProfile } from "./firebase-init.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   var toggle = document.querySelector(".nav-toggle");
@@ -30,6 +30,23 @@ document.addEventListener("DOMContentLoaded", function () {
   var navAdminLink = document.getElementById("nav-admin-link");
   var navOrdersLink = document.getElementById("nav-orders-link");
   var cartBadge = document.getElementById("cart-count");
+
+  if (navUserName) {
+    navUserName.style.cursor = "pointer";
+    navUserName.title = "Tap to change your display name";
+    navUserName.addEventListener("click", async function () {
+      var current = auth.currentUser;
+      if (!current) return;
+      var newName = window.prompt("Update your display name:", current.displayName || "");
+      if (!newName || !newName.trim()) return;
+      try {
+        await updateProfile(current, { displayName: newName.trim() });
+        navUserName.textContent = newName.trim();
+      } catch (e) {
+        window.alert("Couldn't update your name. Please try again.");
+      }
+    });
+  }
 
   onAuthStateChanged(auth, async function (user) {
     if (user) {
